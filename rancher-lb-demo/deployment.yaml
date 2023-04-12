@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rancher-demo
+  namespace: default
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: rancher-demo
+  template:
+    metadata:
+      labels:
+        app: rancher-demo
+    spec:
+      containers:
+      - name: rancher-demo
+        image: bashofmann/rancher-demo:1.0.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          name: web
+          protocol: TCP
+        env:
+          - name: COW_COLOR
+            value: purple
+          - name : REFRESH_INTERVAL
+            value: "100"
+        readinessProbe:
+          httpGet:
+            port: web
+            path: /
