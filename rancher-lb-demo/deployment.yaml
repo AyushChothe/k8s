@@ -4,7 +4,7 @@ metadata:
   name: rancher-demo
   namespace: default
 spec:
-  replicas: 10
+  # replicas: 10
   selector:
     matchLabels:
       app: rancher-demo
@@ -19,8 +19,8 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: "64Mi"
+              cpu: "100m"
           ports:
             - containerPort: 8080
               name: web
@@ -29,7 +29,7 @@ spec:
             - name: COW_COLOR
               value: purple
             - name: REFRESH_INTERVAL
-              value: "100"
+              value: "10"
           readinessProbe:
             httpGet:
               port: web
